@@ -2,8 +2,6 @@ import GameBoard from './game-board';
 import gameTileFactory from '../tiles/game-tile';
 import gamePieceFactory from '../game-piece';
 
-const shuffleArray = require('fisher-yates');
-
 export function generateBoardElements(count, imageSize, boardElementFactory) {
   const elements = [];
   const gridSize = Math.round(Math.sqrt(count));
@@ -37,7 +35,7 @@ export function createGameBoard(puzzleGame) {
   const piecesCount = calculateGamePiecesCount(gridSize);
 
   const tiles = generateBoardElements(tilesCount, imageSize, gameTileFactory);
-  const pieces = shuffleArray(generateBoardElements(piecesCount, imageSize, gamePieceFactory));
+  const pieces = generateBoardElements(piecesCount, imageSize, gamePieceFactory);
   assignTilePieces(tiles, pieces);
 
   return new GameBoard(puzzleGame, tiles, pieces);

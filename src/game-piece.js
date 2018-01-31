@@ -7,6 +7,16 @@ export class GamePiece {
     this.coordinates = coordinates;
     this.position = position;
   }
+
+  template(image) {
+    return `<div id="gamePiece${this.index}" style="width: 125px; height: 125px;
+    background: url(${image});
+    background-position: -${this.position.left}px -${this.position.top}px;
+    position: absolute;
+    border: 1px solid yellow;
+    top: ${this.position.top}px;
+    left: ${this.position.left}px">${this.index}</div>`;
+  }
 }
 
 function calculatePosition({ x, y }, gridSize, imageSize) {

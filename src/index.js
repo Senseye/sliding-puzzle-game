@@ -16,4 +16,6 @@ const gameBoard = createGameBoard(puzzleGame);
 
 console.log(gameBoard);
 
+puzzleGame.render();
+gameBoard.render();
 puzzleGame.start();
