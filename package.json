@@ -1,0 +1,30 @@
+{
+  "name": "sliding-puzzle-game",
+  "version": "1.0.0",
+  "description": "Sliding puzzle game",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Senseye/sliding-puzzle-game.git"
+  },
+  "author": "= <=>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Senseye/sliding-puzzle-game/issues"
+  },
+  "homepage": "https://github.com/Senseye/sliding-puzzle-game#readme",
+  "devDependencies": {
+    "@neutrinojs/airbnb-base": "^8.1.1",
+    "@neutrinojs/standardjs": "^8.1.1",
+    "@neutrinojs/web": "^8.1.1",
+    "babel-preset-es2016": "^6.24.1",
+    "neutrino": "^8.1.1"
+  },
+  "dependencies": {},
+  "keywords": [],
+  "scripts": {
+    "build": "neutrino build",
+    "start": "neutrino start",
+    "lint": "neutrino lint"
+  }
+}
