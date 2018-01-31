@@ -1,11 +1,15 @@
-const GAME_SIZE = 500;
 
 class PuzzleGame {
-  constructor(sourceImage, size) {
-    this.sourceImage = sourceImage;
-    this.size = size;
+  constructor(elementId) {
+    this.element = document.getElementById(elementId);
+    this.initSettings();
     this.state = 'new';
-    console.log('new game');
+    console.log('new game: ', this.state);
+  }
+
+  initSettings() {
+    this.gridSize = Number(this.element.getAttribute('grid-size'));
+    this.imageSize = Number(this.element.getAttribute('image-size'));
   }
 
   start() {
@@ -13,8 +17,6 @@ class PuzzleGame {
   }
 }
 
-export default function initPuzzleGame(containerId) {
-  const element = document.getElementById(containerId);
-  const sourceImage = element.getAttribute('image-src');
-  return new PuzzleGame(sourceImage, 4);
+export default function createPuzzleGame(elementId) {
+  return new PuzzleGame(elementId);
 }

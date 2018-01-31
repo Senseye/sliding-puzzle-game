@@ -20,7 +20,9 @@
     "babel-preset-es2016": "^6.24.1",
     "neutrino": "^8.1.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "fisher-yates": "^1.0.3"
+  },
   "keywords": [],
   "scripts": {
     "build": "neutrino build",

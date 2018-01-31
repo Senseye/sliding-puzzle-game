@@ -1,4 +1,6 @@
-import initPuzzleGame from './puzzle-game';
+import createPuzzleGame from './puzzle-game';
+import { createGameBoard } from './board/game-board-factory';
+
 import appView from './app.html';
 
 const root = document.getElementById('root');
@@ -9,5 +11,9 @@ if (module.hot) {
   module.hot.accept();
 }
 
-const puzzleGame = initPuzzleGame('game');
+const puzzleGame = createPuzzleGame('game');
+const gameBoard = createGameBoard(puzzleGame);
+
+console.log(gameBoard);
+
 puzzleGame.start();
