@@ -25,13 +25,11 @@ export class GamePiece {
   }
 
   setPosition() {
-    console.log(this.tile);
     this.element.style.top = `${this.tile.position.top}px`;
     this.element.style.left = `${this.tile.position.left}px`;
   }
 
   onClick() {
-    console.log('hello', this.index);
     this.move();
   }
 
@@ -73,6 +71,7 @@ export class GamePiece {
       this.gameBoard.freeTile.gamePiece = this;
       this.gameBoard.setFreeTile();
       this.setPosition();
+      this.gameBoard.puzzleGame.updateMoves();
     }
   }
 }

@@ -2,8 +2,8 @@ import Rx from 'rxjs/Rx';
 
 export default class GameBoard {
   constructor(puzzleGame) {
-    console.log('Game board');
     this.puzzleGame = puzzleGame;
+    this.element = document.getElementById('gameBoard');
     this.tiles = [];
     this.pieces = [];
     this.bindClickEvents();
@@ -23,10 +23,11 @@ export default class GameBoard {
   }
 
   render() {
-    const { imageSrc } = this.puzzleGame;
+    const { imageSrc, imageSize } = this.puzzleGame;
+    this.element.style = `position: relative; width: ${imageSize}px; height: ${imageSize}px; border: 1px solid black;`;
     this.pieces.forEach((gamePiece) => {
       const gamePieceElement = gamePiece.template(imageSrc);
-      this.puzzleGame.element.appendChild(gamePieceElement);
+      this.element.appendChild(gamePieceElement);
     });
   }
 

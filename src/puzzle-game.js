@@ -4,7 +4,6 @@ class PuzzleGame {
     this.element = document.getElementById(elementId);
     this.initSettings();
     this.state = 'new';
-    console.log('new game: ', this.state);
     this.moves = 0;
     this.elapsedMs = 0;
   }
@@ -20,7 +19,16 @@ class PuzzleGame {
   }
 
   render() {
-    this.element.style = `position: relative; width: ${this.imageSize}px; height: ${this.imageSize}px; border: 1px solid black;`;
+    this.element.getElementsByClassName('moves')[0].innerHTML = this.moves;
+  }
+
+  incrementMoves() {
+    this.moves = this.moves + 1;
+  }
+
+  updateMoves() {
+    this.incrementMoves();
+    this.render();
   }
 }
 
