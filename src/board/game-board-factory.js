@@ -5,14 +5,14 @@ import { calculatePosition, calculateCoordinates } from './board-utils';
 
 const shuffleArray = require('fisher-yates');
 
-export function generateBoardElements(count, imageSize, boardElementFactory) {
+export function generateBoardElements(count, imageSize, gameBoard, boardElementFactory) {
   const elements = [];
   const gridSize = Math.round(Math.sqrt(count));
 
   for (let i = 0; i < count; i += 1) {
     const coordinates = calculateCoordinates(i, gridSize);
     const position = calculatePosition(coordinates, gridSize, imageSize);
-    elements.push(boardElementFactory(i, coordinates, position));
+    elements.push(boardElementFactory(i, coordinates, position, gameBoard));
   }
   return elements;
 }
@@ -33,19 +33,25 @@ function assignTilePieces(tiles, pieces) {
     const tile = tilesArray[index];
     tile.gamePiece = gamePiece;
     gamePiece.tile = tile;
-    console.log(gamePiece);
   });
 }
 
 export function createGameBoard(puzzleGame) {
   const { gridSize, imageSize } = puzzleGame;
+  const gameBoard = new GameBoard(puzzleGame);
 
   const tilesCount = calculateGameTilesCount(gridSize);
   const piecesCount = calculateGamePiecesCount(gridSize);
 
-  const tiles = generateBoardElements(tilesCount, imageSize, gameTileFactory);
-  const pieces = shuffleArray(generateBoardElements(piecesCount, imageSize, gamePieceFactory));
+  const tiles = generateBoardElements(tilesCount, imageSize, gameBoard, gameTileFactory);
+  let pieces = generateBoardElements(piecesCount, imageSize, gameBoard, gamePieceFactory);
+  pieces = shuffleArray(pieces);
   assignTilePieces(tiles, pieces);
 
-  return new GameBoard(puzzleGame, tiles, pieces);
+  gameBoard.tiles = tiles;
+  gameBoard.pieces = pieces;
+
+  gameBoard.setFreeTile();
+
+  return gameBoard;
 }

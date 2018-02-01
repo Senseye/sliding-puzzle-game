@@ -1,10 +1,11 @@
 
 export class GameTile {
-  constructor(index, coordinates, position) {
+  constructor(index, coordinates, position, gameBoard) {
     this.index = index;
     this.gamePiece = null;
     this.coordinates = coordinates;
     this.position = position;
+    this.gameBoard = gameBoard;
     console.log('Game tile');
   }
 
@@ -13,6 +14,6 @@ export class GameTile {
   }
 }
 
-export default function gameTileFactory(index, coordinates, position) {
-  return new GameTile(index, coordinates, position);
+export default function gameTileFactory(index, coordinates, position, gameBoard) {
+  return new GameTile(index, coordinates, position, gameBoard);
 }
