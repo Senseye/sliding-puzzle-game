@@ -1,4 +1,3 @@
-import calculateCoordinates from './board/board-utils';
 
 export class GamePiece {
   constructor(index, coordinates, position) {
@@ -14,21 +13,11 @@ export class GamePiece {
     background-position: -${this.position.left}px -${this.position.top}px;
     position: absolute;
     border: 1px solid yellow;
-    top: ${this.position.top}px;
-    left: ${this.position.left}px">${this.index}</div>`;
+    top: ${this.tile.position.top}px;
+    left: ${this.tile.position.left}px">${this.index}</div>`;
   }
 }
 
-function calculatePosition({ x, y }, gridSize, imageSize) {
-  const tileSize = imageSize / gridSize;
-  const top = x * tileSize;
-  const left = y * tileSize;
-
-  return { top, left };
-}
-
-export default function gamePieceFactory(index, gridSize, imageSize) {
-  const coordinates = calculateCoordinates(index, gridSize);
-  const position = calculatePosition(coordinates, gridSize, imageSize);
+export default function gamePieceFactory(index, coordinates, position) {
   return new GamePiece(index, coordinates, position);
 }

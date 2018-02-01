@@ -1,10 +1,10 @@
-import calculateCoordinates from './../board/board-utils';
 
 export class GameTile {
-  constructor(index, coordinates) {
+  constructor(index, coordinates, position) {
     this.index = index;
     this.gamePiece = null;
     this.coordinates = coordinates;
+    this.position = position;
     console.log('Game tile');
   }
 
@@ -13,7 +13,6 @@ export class GameTile {
   }
 }
 
-export default function gameTileFactory(index, gridSize) {
-  const coordinates = calculateCoordinates(index, gridSize);
-  return new GameTile(index, coordinates);
+export default function gameTileFactory(index, coordinates, position) {
+  return new GameTile(index, coordinates, position);
 }
