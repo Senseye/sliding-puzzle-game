@@ -6,15 +6,20 @@ export class GameBoard {
     this.pieces = [];
     this.element = document.getElementById('gameBoard');
     this.bindClickEvents();
+    this.setStyles();
   }
 
   setFreeTile() {
     this.freeTile = this.tiles.find(tile => tile.isEmpty);
   }
 
-  render() {
+  setStyles() {
     const { imageSize } = this.game;
-    this.element.style = `position: relative; width: ${imageSize}px; height: ${imageSize}px; border: 1px solid black;`;
+    this.element.style.width = `${imageSize}px`;
+    this.element.style.height = `${imageSize}px`;
+  }
+
+  render() {
     const tilesFragment = document.createDocumentFragment();
     this.pieces.forEach(gamePiece => tilesFragment.appendChild(gamePiece.element));
     this.element.appendChild(tilesFragment);

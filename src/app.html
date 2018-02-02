@@ -3,6 +3,10 @@
         box-sizing: border-box;
     }
     #game { user-select: none; }
+    .game-board {
+        position: relative;
+        border: 1px solid black;
+    }
     .puzzle-piece {
         font-size: 14px;
         color: white;
@@ -19,5 +23,5 @@
         <p>Moves: <span class="moves"></span></p>
         <p>Status: <span class="status">Not started</span></p>
     </div>
-    <div id="gameBoard"></div>
+    <div class="game-board" id="gameBoard"></div>
 </div>
