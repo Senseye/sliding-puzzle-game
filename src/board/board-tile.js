@@ -2,15 +2,18 @@
 export class GameTile {
   constructor(index, coordinates, position, gameBoard) {
     this.index = index;
-    this.gamePiece = null;
+    this.isEmpty = true;
     this.coordinates = coordinates;
     this.position = position;
     this.gameBoard = gameBoard;
-    console.log('Game tile');
   }
 
-  isFree() {
-    return this.gamePiece === null;
+  empty() {
+    this.isEmpty = true;
+  }
+
+  occupy() {
+    this.isEmpty = false;
   }
 }
 

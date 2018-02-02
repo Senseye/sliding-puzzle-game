@@ -1,6 +1,4 @@
-import createPuzzleGame from './puzzle-game';
-import { createGameBoard } from './board/game-board-factory';
-
+import puzzleGameFactory from './puzzle-game/puzzle-game-factory';
 import appView from './app.html';
 
 const root = document.getElementById('root');
@@ -11,7 +9,11 @@ if (module.hot) {
   module.hot.accept();
 }
 
-const puzzleGame = createPuzzleGame('game');
+const puzzleGame = puzzleGameFactory();
+puzzleGame.render();
+puzzleGame.start();
+
+/*
 const gameBoard = createGameBoard(puzzleGame);
 
 console.log(gameBoard);
@@ -19,3 +21,4 @@ console.log(gameBoard);
 puzzleGame.render();
 gameBoard.render();
 puzzleGame.start();
+*/
