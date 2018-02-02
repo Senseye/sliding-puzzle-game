@@ -32,7 +32,7 @@ export class PuzzleGameState {
   }
 
   isGameFinished() {
-    return this.offPlacedPieces === 1;
+    return this.offPlacedPieces === 0;
   }
 
   endGame() {
