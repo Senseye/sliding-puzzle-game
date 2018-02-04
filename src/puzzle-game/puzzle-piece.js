@@ -47,7 +47,7 @@ export class GamePiece {
 
   hasValidMove() {
     const possibleMoves = this.getMoveDirections();
-    const { x, y } = this.gameBoard.freeTile.coordinates;
+    const { x, y } = this.gameBoard.emptyTile.coordinates;
     return possibleMoves.find(coordinates => coordinates.x === x && coordinates.y === y);
   }
 
@@ -77,12 +77,16 @@ export class GamePiece {
   move() {
     const validMove = this.hasValidMove();
     if (validMove) {
-      this.boardTile.empty();
-      this.boardTile = this.gameBoard.freeTile;
-      this.gameBoard.freeTile.occupy();
-      this.gameBoard.setFreeTile();
+      this.useBoardEmptyTile();
       this.onMoveSuccess();
     }
+  }
+
+  useBoardEmptyTile() {
+    this.boardTile.empty();
+    this.boardTile = this.gameBoard.emptyTile;
+    this.gameBoard.emptyTile.occupy();
+    this.gameBoard.setEmptyTile();
   }
 
   onClick() {

@@ -9,8 +9,8 @@ export class GameBoard {
     this.setStyles();
   }
 
-  setFreeTile() {
-    this.freeTile = this.tiles.find(tile => tile.isEmpty);
+  setEmptyTile() {
+    this.emptyTile = this.tiles.find(tile => tile.isEmpty);
   }
 
   setStyles() {
