@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import * as boardMoveDirections from '../board/move-directions';
 
 class PuzzleGame {
@@ -8,15 +9,17 @@ class PuzzleGame {
       boardMoveDirections.oneStepUpMove,
       boardMoveDirections.oneStepDownMove,
     ];
+    this.endGameSubject = new BehaviorSubject(false);
+    this.startGameSubject = new BehaviorSubject(false);
   }
 
   start() {
     this.gameState.init();
+    this.startGameSubject.next(true);
   }
 
   end() {
-    console.log('game ended');
-    console.log(this.gameState);
+    this.endGameSubject.next(true);
   }
 }
 

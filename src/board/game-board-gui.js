@@ -11,6 +11,17 @@ export class GameBoardGUI {
     this.initPiecesGUI(settings.pieceGUIFactory);
     this.clickCallback = this.delegateClickEvent.bind(this);
     this.bindClickEvents();
+    this.gameEndSubscribe();
+  }
+
+  gameEndSubscribe() {
+    this.gameBoard.game
+      .endGameSubject
+      .filter(data => data)
+      .subscribe(() => {
+        this.renderGameOver();
+        this.destroy();
+      });
   }
 
   initPiecesGUI(factory) {
@@ -23,10 +34,15 @@ export class GameBoardGUI {
     this.element.style.height = `${this.imageSize}px`;
   }
 
+  renderGameOver() {
+    this.element.style.backgroundImage = `url(${this.imageSrc})`;
+  }
+
   render() {
     const tilesFragment = document.createDocumentFragment();
     this.piecesGUI.forEach(piece => tilesFragment.appendChild(piece.element));
     this.element.appendChild(tilesFragment);
+    this.element.classList.remove('d-none');
   }
 
   delegateClickEvent(event) {
@@ -41,6 +57,7 @@ export class GameBoardGUI {
   }
 
   destroy() {
+    this.element.innerHTML = '<button onclick=\'window.location.reload()\'>Restart</button>';
     this.element.removeEventListener('click', this.clickCallback);
   }
 }

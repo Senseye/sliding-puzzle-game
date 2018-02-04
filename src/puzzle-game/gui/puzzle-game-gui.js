@@ -1,5 +1,7 @@
 function template(data) {
-  return `Moves: ${data.moves} Off placed pieces: ${data.offPlacedPieces} Status: ${data.status}`;
+  return `Moves <span class="badge badge-dark">${data.moves}</span>
+  Off placed pieces: <span class="badge badge-dark">${data.offPlacedPieces}</span>
+  Status: <span class="badge badge-dark">${data.status}</span>`;
 }
 
 export class PuzzleGameGUI {

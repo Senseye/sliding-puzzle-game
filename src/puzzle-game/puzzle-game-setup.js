@@ -14,6 +14,14 @@ export class PuzzleGameSetup {
     this.imageElement.setAttribute('src', image);
   }
 
+  hide() {
+    this.element.classList.add('d-none');
+  }
+
+  show() {
+    this.element.classList.remove('d-none');
+  }
+
   bindEvents() {
     const formSubmit = Observable.fromEvent(this.element, 'submit');
     const formChange = Observable.fromEvent(this.element, 'change');
@@ -26,7 +34,7 @@ export class PuzzleGameSetup {
         imageSrc: target.querySelector('[name=imageSrc]').value,
         imageSize: document.getElementById('imagePreview').width,
       };
-      this.element.classList.add('d-none');
+      this.hide();
       this.subject.next(data);
     });
 

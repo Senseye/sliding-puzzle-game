@@ -93,7 +93,6 @@ export default function puzzleGameFactory(data) {
   gameBoard.pieces = pieces;
   gameBoard.setEmptyTile();
 
-  console.log(puzzleGame);
   createPuzzleGameGUI('game', puzzleGame);
   const gameBoardGUI = createGameBoardGUI({
     element: document.getElementById('gameBoard'),
@@ -103,7 +102,10 @@ export default function puzzleGameFactory(data) {
     imageSize,
     imageSrc,
   });
-  gameBoardGUI.render();
+
+  puzzleGame.startGameSubject.subscribe(() => {
+    gameBoardGUI.render();
+  });
 
   return puzzleGame;
 }
