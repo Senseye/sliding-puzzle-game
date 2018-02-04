@@ -92,6 +92,5 @@ export default function puzzleGameFactory() {
   gameBoard.setEmptyTile();
 
   gameBoard.render();
-  gameBoard.destroy();
   return puzzleGame;
 }

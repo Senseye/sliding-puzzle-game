@@ -7,6 +7,7 @@ export class GameBoard {
     this.element = document.getElementById('gameBoard');
     this.bindClickEvents();
     this.setStyles();
+    this.clickCallback = this.delegateClickEvent.bind(this);
   }
 
   setEmptyTile() {
@@ -26,7 +27,7 @@ export class GameBoard {
   }
 
   bindClickEvents() {
-    this.element.addEventListener('click', this.delegateClickEvent.bind(this));
+    this.element.addEventListener('click', this.clickCallback);
   }
 
   delegateClickEvent(event) {
@@ -39,7 +40,7 @@ export class GameBoard {
 
   destroy() {
     console.log('destroy');
-    this.element.removeEventListener('click', this.delegateClickEvent);
+    this.element.removeEventListener('click', this.clickCallback);
   }
 }
 
