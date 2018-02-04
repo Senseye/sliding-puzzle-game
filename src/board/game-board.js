@@ -5,10 +5,15 @@ export class GameBoard {
     this.size = size;
     this.tiles = [];
     this.pieces = [];
+    this.emptyTiles = [];
   }
 
-  setEmptyTile() {
-    this.emptyTile = this.tiles.find(tile => tile.isEmpty);
+  setEmptyTiles() {
+    this.emptyTiles = this.tiles.filter(tile => tile.isEmpty);
+  }
+
+  firstEmptyTile() {
+    return this.emptyTiles[0];
   }
 }
 

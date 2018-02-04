@@ -7,8 +7,7 @@ import { createPuzzleGameState } from './puzzle-game-state';
 import { createPuzzleGameGUI } from './gui/puzzle-game-gui';
 import { createGameBoardGUI } from '../board/game-board-gui';
 import { createPuzzlePieceGUI } from './gui/puzzle-piece-gui';
-
-const shuffleArray = require('fisher-yates');
+import shufflePuzzlePieces from './puzzle-shuffler';
 
 export function generateBoardElements(count, imageSize, gameBoard, boardElementFactory) {
   const elements = [];
@@ -22,14 +21,6 @@ export function generateBoardElements(count, imageSize, gameBoard, boardElementF
   return elements;
 }
 
-function calculateGameTilesCount(gridSize) {
-  return gridSize * gridSize;
-}
-
-function calculateGamePiecesCount(gridSize) {
-  return calculateGameTilesCount(gridSize) - 1;
-}
-
 function assignTilePieces(tiles, pieces) {
   const tilesArray = tiles;
   pieces.forEach((currentValue, index) => {
@@ -40,58 +31,24 @@ function assignTilePieces(tiles, pieces) {
   });
 }
 
-function countInversions(pieces) {
-  let counts = 0;
-  for (let i = 0; i < pieces.length - 1; i += 1) {
-    const { index: currentIndex } = pieces[i];
-
-    for (let y = i + 1; y < pieces.length; y += 1) {
-      const { index: nextIndex } = pieces[y];
-      if (currentIndex > nextIndex) {
-        counts += 1;
-      }
-    }
-  }
-  return counts;
-}
-
-function isSolvable(pieces, gridSize, emptyTile) {
-  const isEvenGrid = gridSize % 2 === 0;
-  const isEvenInversions = countInversions(pieces) % 2 === 0;
-  const emptyOnEven = (emptyTile.coordinates.x > 0 && (emptyTile.coordinates.x) % 2 > 0);
-  const part1 = !isEvenGrid && isEvenInversions;
-  const part2 = isEvenGrid && (emptyOnEven === isEvenInversions);
-  return part1 || part2;
-}
-
 export default function puzzleGameFactory(data) {
   const { gridSize, imageSize, imageSrc } = data;
-
   const puzzleGame = createPuzzleGame();
   const gameBoard = createGameBoard(puzzleGame, gridSize);
   puzzleGame.gameState = createPuzzleGameState(gameBoard);
 
-  const tilesCount = calculateGameTilesCount(gridSize);
-  const piecesCount = calculateGamePiecesCount(gridSize);
+  const tilesCount = gridSize * gridSize;
+  const piecesCount = tilesCount - 1;
 
   const tiles = generateBoardElements(tilesCount, imageSize, gameBoard, gameTileFactory);
   let pieces = generateBoardElements(piecesCount, imageSize, gameBoard, gamePieceFactory);
-  pieces = shuffleArray(pieces);
+  const { coordinates: emptyTileCoordinates } = tiles[tiles.length - 1];
+  pieces = shufflePuzzlePieces(pieces, gridSize, emptyTileCoordinates);
   assignTilePieces(tiles, pieces);
-
-  const emptyTile = tiles.find(tile => tile.isEmpty);
-  function makeSolvable() {
-    if (!isSolvable(pieces, gridSize, emptyTile)) {
-      pieces = shuffleArray(pieces);
-      assignTilePieces(tiles, pieces);
-      makeSolvable();
-    }
-  }
-  makeSolvable();
 
   gameBoard.tiles = tiles;
   gameBoard.pieces = pieces;
-  gameBoard.setEmptyTile();
+  gameBoard.setEmptyTiles();
 
   createPuzzleGameGUI('game', puzzleGame);
   const gameBoardGUI = createGameBoardGUI({

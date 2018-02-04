@@ -24,7 +24,7 @@ export class PuzzlePiece {
 
   hasValidMove() {
     const possibleMoves = this.getMoveDirections();
-    const { x, y } = this.gameBoard.emptyTile.coordinates;
+    const { x, y } = this.gameBoard.firstEmptyTile().coordinates;
     return possibleMoves.find(coordinates => coordinates.x === x && coordinates.y === y);
   }
 
@@ -54,9 +54,9 @@ export class PuzzlePiece {
 
   useBoardEmptyTile() {
     this.boardTile.empty();
-    this.boardTile = this.gameBoard.emptyTile;
-    this.gameBoard.emptyTile.occupy();
-    this.gameBoard.setEmptyTile();
+    this.boardTile = this.gameBoard.firstEmptyTile();
+    this.boardTile.occupy();
+    this.gameBoard.setEmptyTiles();
   }
 }
 
