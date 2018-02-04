@@ -6,7 +6,6 @@ export class PuzzlePiece {
     this.position = position;
     this.gameBoard = gameBoard;
     this.game = gameBoard.game;
-    this.gameState = this.game.gameState;
   }
 
   set tile(tile) {
@@ -30,7 +29,7 @@ export class PuzzlePiece {
 
   updateGameState() {
     const movementValue = this.isInPlace ? -1 : Boolean(this.wasInPlace);
-    this.gameState.update(movementValue);
+    this.game.gameState.update(movementValue);
   }
 
   updatePlacementIndicators() {

@@ -14,7 +14,6 @@ class PuzzleGame {
   }
 
   start() {
-    this.gameState.init();
     this.startGameSubject.next(true);
   }
 

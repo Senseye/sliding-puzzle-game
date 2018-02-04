@@ -1,30 +1,12 @@
 import { BehaviorSubject } from 'rxjs';
 
-function isOffPlacedPiece(gamePiece) {
-  const { x, y } = gamePiece.boardTile.coordinates;
-  return gamePiece.coordinates.x !== x || gamePiece.coordinates.y !== y;
-}
-
 export class PuzzleGameState {
-  constructor(gameBoard) {
-    this.offPlacedPieces = 0;
+  constructor({ offPlacedPieces, game }) {
+    this.offPlacedPieces = offPlacedPieces;
     this.moves = 0;
     this.status = 'started';
-    this.gameBoard = gameBoard;
-    this.game = gameBoard.game;
+    this.game = game;
     this.stateSubject = new BehaviorSubject(this.getGameState());
-  }
-
-  init() {
-    this.calculateOffPlacedPieces();
-  }
-
-  calculateOffPlacedPieces() {
-    this.gameBoard.pieces
-      .filter(gamePiece => isOffPlacedPiece(gamePiece))
-      .forEach(() => {
-        this.offPlacedPieces += 1;
-      });
   }
 
   updateOffPlacedPieces(val) {
