@@ -64,9 +64,8 @@ function isSolvable(pieces, gridSize, emptyTile) {
   return part1 || part2;
 }
 
-export default function puzzleGameFactory() {
-  const gridSize = document.getElementById('gameBoard').getAttribute('grid-size');
-  const imageSize = document.getElementById('gameBoard').getAttribute('image-size');
+export default function puzzleGameFactory(data) {
+  const { gridSize, imageSize, imageSrc } = data;
 
   const puzzleGame = createPuzzleGame('game');
   const gameBoard = createGameBoard(puzzleGame, gridSize);
@@ -89,15 +88,20 @@ export default function puzzleGameFactory() {
     }
   }
   makeSolvable();
-  console.log(pieces);
-  console.log('Is solvable: ', isSolvable(pieces, gridSize, emptyTile));
 
   gameBoard.tiles = tiles;
   gameBoard.pieces = pieces;
   gameBoard.setEmptyTile();
 
   createPuzzleGameGUI('game');
-  const gameBoardGUI = createGameBoardGUI('gameBoard', gameBoard, createPuzzlePieceGUI);
+  const gameBoardGUI = createGameBoardGUI({
+    element: document.getElementById('gameBoard'),
+    pieceGUIFactory: createPuzzlePieceGUI,
+    gameBoard,
+    gridSize,
+    imageSize,
+    imageSrc,
+  });
   gameBoardGUI.render();
 
   return puzzleGame;

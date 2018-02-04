@@ -1,7 +1,5 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <style>
-    * {
-        box-sizing: border-box;
-    }
     #game { user-select: none; }
     .game-board {
         position: relative;
@@ -17,14 +15,30 @@
         transition: top 0.2s, left 0.2s;
     }
 </style>
-<h1>Sliding Puzzle Game</h1>
-<div id="game">
-    <div class="game-info">
-        <p>Moves: <span class="moves"></span></p>
-        <p>Status: <span class="status">Not started</span></p>
+<div class="container-fluid">
+    <h1>Sliding Puzzle Game</h1>
+    <div id="puzzleGameSetup" class="puzzle-settings">
+        <form>
+            <div class="form-group">
+                <label for="puzzleImage">Image</label>
+                <input class="form-control" id="puzzleImage" name="imageSrc" type="text" value="http://localhost:5000/static/images/monks.jpg" />
+            </div>
+            <div class="form-group">
+                <label for="gridSize">Grid size</label>
+                <input class="form-control" id="gridSize" name="gridSize" type="number" value="4" min="2" max="20" />
+            </div>
+            <p><button type="submit" class="btn btn-primary">Start game</button></p>
+        </form>
+        <div class="puzzle-settings__preview">
+            <img src="http://localhost:5000/static/images/monks.jpg" id="imagePreview"/>
+        </div>
     </div>
-    <div class="game-board" id="gameBoard"
-         image-src="http://localhost:5000/static/images/monks.jpg"
-         grid-size="2"
-         image-size="500"></div>
+
+    <div id="game">
+        <div class="game-info">
+            <p>Moves: <span class="moves"></span></p>
+            <p>Status: <span class="status">Not started</span></p>
+        </div>
+        <div class="game-board" id="gameBoard"></div>
+    </div>
 </div>

@@ -1,5 +1,6 @@
 import puzzleGameFactory from './puzzle-game/puzzle-game-factory';
 import appView from './app.html';
+import { createPuzzleGameSetup } from './puzzle-game/puzzle-game-setup';
 
 const root = document.getElementById('root');
 root.innerHTML = appView;
@@ -9,15 +10,8 @@ if (module.hot) {
   module.hot.accept();
 }
 
-const puzzleGame = puzzleGameFactory();
-puzzleGame.start();
-
-/*
-const gameBoard = createGameBoard(puzzleGame);
-
-console.log(gameBoard);
-
-puzzleGame.render();
-gameBoard.render();
-puzzleGame.start();
-*/
+const setup = createPuzzleGameSetup('puzzleGameSetup');
+setup.subject.subscribe((gameSetup) => {
+  const puzzleGame = puzzleGameFactory(gameSetup);
+  puzzleGame.start();
+});

@@ -1,20 +1,16 @@
 
 export class GameBoardGUI {
-  constructor(element, gameBoard, pieceGUIFactory) {
-    this.gameBoard = gameBoard;
-    this.element = element;
+  constructor(settings) {
+    this.gameBoard = settings.gameBoard;
+    this.element = settings.element;
+    this.imageSrc = settings.imageSrc;
+    this.imageSize = settings.imageSize;
+    this.gridSize = settings.gridSize;
     this.piecesGUI = [];
-    this.extractSettings();
     this.setStyles();
-    this.initPiecesGUI(pieceGUIFactory);
+    this.initPiecesGUI(settings.pieceGUIFactory);
     this.clickCallback = this.delegateClickEvent.bind(this);
     this.bindClickEvents();
-  }
-
-  extractSettings() {
-    this.gridSize = Number(this.element.getAttribute('grid-size'));
-    this.imageSize = Number(this.element.getAttribute('image-size'));
-    this.imageSrc = this.element.getAttribute('image-src');
   }
 
   initPiecesGUI(factory) {
@@ -35,12 +31,9 @@ export class GameBoardGUI {
 
   delegateClickEvent(event) {
     const { target } = event;
-    const gamePiece = this.piecesGUI
-      .find(currentPiece => currentPiece.element.isSameNode(target));
-
-    if (gamePiece) {
-      gamePiece.onClick();
-    }
+    this.piecesGUI
+      .filter(currentPiece => currentPiece.element.isSameNode(target))
+      .forEach(piece => piece.onClick());
   }
 
   bindClickEvents() {
@@ -52,6 +45,6 @@ export class GameBoardGUI {
   }
 }
 
-export function createGameBoardGUI(element, gameBoard, pieceGUIFactory) {
-  return new GameBoardGUI(document.getElementById(element), gameBoard, pieceGUIFactory);
+export function createGameBoardGUI(settings) {
+  return new GameBoardGUI(settings);
 }
