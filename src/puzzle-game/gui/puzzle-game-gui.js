@@ -1,15 +1,19 @@
+function template(data) {
+  return `Moves: ${data.moves} Off placed pieces: ${data.offPlacedPieces} Status: ${data.status}`;
+}
 
 export class PuzzleGameGUI {
-  constructor(element) {
+  constructor(element, puzzleGame) {
     this.element = element;
-    this.extractSettings();
+    this.puzzleGame = puzzleGame;
+    this.puzzleGame.gameState.stateSubject.subscribe(state => this.render(state));
   }
 
-  extractSettings() {
-    this.imageSrc = this.element.getAttribute('image-src');
+  render(data) {
+    this.element.querySelector('.game-state').innerHTML = template(data);
   }
 }
 
-export function createPuzzleGameGUI(element) {
-  return new PuzzleGameGUI(document.getElementById(element));
+export function createPuzzleGameGUI(element, puzzleGame) {
+  return new PuzzleGameGUI(document.getElementById(element), puzzleGame);
 }

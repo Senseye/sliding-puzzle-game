@@ -67,7 +67,7 @@ function isSolvable(pieces, gridSize, emptyTile) {
 export default function puzzleGameFactory(data) {
   const { gridSize, imageSize, imageSrc } = data;
 
-  const puzzleGame = createPuzzleGame('game');
+  const puzzleGame = createPuzzleGame();
   const gameBoard = createGameBoard(puzzleGame, gridSize);
   puzzleGame.gameState = createPuzzleGameState(gameBoard);
 
@@ -93,7 +93,8 @@ export default function puzzleGameFactory(data) {
   gameBoard.pieces = pieces;
   gameBoard.setEmptyTile();
 
-  createPuzzleGameGUI('game');
+  console.log(puzzleGame);
+  createPuzzleGameGUI('game', puzzleGame);
   const gameBoardGUI = createGameBoardGUI({
     element: document.getElementById('gameBoard'),
     pieceGUIFactory: createPuzzlePieceGUI,
