@@ -23,6 +23,6 @@ class PuzzleGame {
   }
 }
 
-export default function createPuzzleGame(elementId) {
-  return new PuzzleGame(elementId);
+export default function createPuzzleGame() {
+  return new PuzzleGame();
 }
