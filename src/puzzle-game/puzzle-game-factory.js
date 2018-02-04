@@ -75,20 +75,16 @@ export default function puzzleGameFactory() {
   let pieces = generateBoardElements(piecesCount, imageSize, gameBoard, gamePieceFactory);
   pieces = shuffleArray(pieces);
   assignTilePieces(tiles, pieces);
-
-
   const emptyTile = tiles.find(tile => tile.isEmpty);
 
   function makeSolvable() {
     if (!isSolvable(pieces, gridSize, emptyTile)) {
-      const copy1 = Object.assign({}, pieces[0]);
-      const copy3 = Object.assign({}, pieces[1]);
-      pieces[0] = copy3;
-      pieces[1] = copy1;
+      pieces = shuffleArray(pieces);
+      makeSolvable();
     }
   }
   makeSolvable();
-
+  console.log('Is solvable: ', isSolvable(pieces, gridSize, emptyTile));
 
   gameBoard.tiles = tiles;
   gameBoard.pieces = pieces;
