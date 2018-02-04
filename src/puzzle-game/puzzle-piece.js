@@ -29,12 +29,7 @@ export class PuzzlePiece {
   }
 
   updateGameState() {
-    let movementValue = 0;
-    if (this.wasInPlace) {
-      movementValue = 1;
-    } else if (this.isInPlace) {
-      movementValue = -1;
-    }
+    const movementValue = this.isInPlace ? -1 : Boolean(this.wasInPlace);
     this.gameState.update(movementValue);
   }
 

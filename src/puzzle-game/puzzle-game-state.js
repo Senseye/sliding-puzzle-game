@@ -54,8 +54,8 @@ export class PuzzleGameState {
     };
   }
 
-  update(val) {
-    this.updateOffPlacedPieces(val);
+  update(offPlaceMove) {
+    this.updateOffPlacedPieces(offPlaceMove);
     this.addMoves();
     this.endGame();
     this.stateSubject.next(this.getGameState());
