@@ -4,6 +4,9 @@ import { calculatePosition, calculateCoordinates } from '../board/board-utils';
 import gameTileFactory from '../board/board-tile';
 import gamePieceFactory from './puzzle-piece';
 import { createPuzzleGameState } from './puzzle-game-state';
+import { createPuzzleGameGUI } from './gui/puzzle-game-gui';
+import { createGameBoardGUI } from '../board/game-board-gui';
+import { createPuzzlePieceGUI } from './gui/puzzle-piece-gui';
 
 const shuffleArray = require('fisher-yates');
 
@@ -62,11 +65,12 @@ function isSolvable(pieces, gridSize, emptyTile) {
 }
 
 export default function puzzleGameFactory() {
-  const puzzleGame = createPuzzleGame('game');
-  const gameBoard = createGameBoard(puzzleGame);
-  puzzleGame.gameState = createPuzzleGameState(gameBoard);
+  const gridSize = document.getElementById('gameBoard').getAttribute('grid-size');
+  const imageSize = document.getElementById('gameBoard').getAttribute('image-size');
 
-  const { gridSize, imageSize } = puzzleGame;
+  const puzzleGame = createPuzzleGame('game');
+  const gameBoard = createGameBoard(puzzleGame, gridSize);
+  puzzleGame.gameState = createPuzzleGameState(gameBoard);
 
   const tilesCount = calculateGameTilesCount(gridSize);
   const piecesCount = calculateGamePiecesCount(gridSize);
@@ -75,22 +79,26 @@ export default function puzzleGameFactory() {
   let pieces = generateBoardElements(piecesCount, imageSize, gameBoard, gamePieceFactory);
   pieces = shuffleArray(pieces);
   assignTilePieces(tiles, pieces);
-  const emptyTile = tiles.find(tile => tile.isEmpty);
 
+  const emptyTile = tiles.find(tile => tile.isEmpty);
   function makeSolvable() {
     if (!isSolvable(pieces, gridSize, emptyTile)) {
       pieces = shuffleArray(pieces);
+      assignTilePieces(tiles, pieces);
       makeSolvable();
     }
   }
   makeSolvable();
+  console.log(pieces);
   console.log('Is solvable: ', isSolvable(pieces, gridSize, emptyTile));
 
   gameBoard.tiles = tiles;
   gameBoard.pieces = pieces;
-
   gameBoard.setEmptyTile();
 
-  gameBoard.render();
+  createPuzzleGameGUI('game');
+  const gameBoardGUI = createGameBoardGUI('gameBoard', gameBoard, createPuzzlePieceGUI);
+  gameBoardGUI.render();
+
   return puzzleGame;
 }

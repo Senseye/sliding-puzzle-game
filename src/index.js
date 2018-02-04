@@ -10,7 +10,6 @@ if (module.hot) {
 }
 
 const puzzleGame = puzzleGameFactory();
-puzzleGame.render();
 puzzleGame.start();
 
 /*
