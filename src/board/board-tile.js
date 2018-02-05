@@ -1,5 +1,5 @@
 
-export class GameTile {
+export class BoardTile {
   constructor(index, coordinates, position, gameBoard) {
     this.index = index;
     this.isEmpty = true;
@@ -18,5 +18,5 @@ export class GameTile {
 }
 
 export default function gameTileFactory(index, coordinates, position, gameBoard) {
-  return new GameTile(index, coordinates, position, gameBoard);
+  return new BoardTile(index, coordinates, position, gameBoard);
 }
