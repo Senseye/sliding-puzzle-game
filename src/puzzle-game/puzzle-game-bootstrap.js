@@ -5,7 +5,7 @@ import { createPuzzleGameGUI } from './gui/puzzle-game-gui';
 import { createGameBoardGUI } from '../board/game-board-gui';
 import { createPuzzlePieceGUI } from './gui/puzzle-piece-gui';
 
-export default function puzzleGameFactory(data) {
+export default function puzzleGameBootstrap(data) {
   const { gridSize, imageSize, imageSrc } = data;
   const game = createPuzzleGame();
   const gameBoard = createPuzzleGameBoard({ game, gridSize, imageSize });

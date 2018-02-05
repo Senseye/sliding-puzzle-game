@@ -1,4 +1,4 @@
-import puzzleGameFactory from './puzzle-game/puzzle-game-factory';
+import puzzleGameBootstrap from './puzzle-game/puzzle-game-bootstrap';
 import appView from './app.html';
 import { createPuzzleGameSetup } from './puzzle-game/puzzle-game-setup';
 
@@ -12,6 +12,6 @@ if (module.hot) {
 
 const setup = createPuzzleGameSetup('puzzleGameSetup');
 setup.subject.subscribe((gameSetup) => {
-  const puzzleGame = puzzleGameFactory(gameSetup);
+  const puzzleGame = puzzleGameBootstrap(gameSetup);
   puzzleGame.start();
 });
